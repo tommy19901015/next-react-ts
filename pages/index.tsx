@@ -19,7 +19,7 @@ const Index: React.FunctionComponent  = () => {
   return (
     <Provider store={ store }>
       <Layout title="Home">
-        <h1>Hello Next.js 👋</h1>
+        {/* <h1>Hello Next.js 👋</h1> */}
       </Layout>
       <Count />
       <Text />

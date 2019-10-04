@@ -7,24 +7,18 @@ import { addText } from '../actions/text'
 interface TextProps {
     count:number,
     text:string,
-    addText:any
+    todosActions:any
 }
 
 const showText = (props:any) => {
-    console.log(props);
     return props.count > 10 ? '>10' : '<10'
 }
-
-const setTextState = (props:any) => {
-    props.todosActions
-    // return props.text = props.count
-} 
 
 const Text: React.FC<TextProps> = (props) => (
   <div>
       <h2>{showText(props)}</h2>
       <h2>{props.text}</h2>
-      <button onClick={props.addText}>set text state</button>
+      <button onClick={()=>props.todosActions(props)}>set text state</button>
   </div>
 )
 
@@ -35,10 +29,15 @@ const mapStateToProps = (state:any) => {
     }
 }
 
-// const mapDispatchToProps = (dispatch:any) => {
-//     return {
-//       todosActions: bindActionCreators(addText, dispatch)
-//     };
-//   }
+const setTextState = (props) => {
+    return {
+        ...addText(),
+        text:props.count
+    }
+}
 
-export default connect(mapStateToProps,{addText})(Text)
+const mapDispatchToProps = (dispatch) => ({
+    todosActions: (props) => dispatch(setTextState(props))
+});
+
+export default connect(mapStateToProps,mapDispatchToProps)(Text)
